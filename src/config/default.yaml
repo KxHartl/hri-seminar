@@ -1,0 +1,98 @@
+# Konfiguracija real-time OptiTrack -> UR pipelinea.
+# Sve granice/parametri OVDJE — nikad hardkodirani u kodu.
+
+source:
+  kind: replay              # replay | live
+  in_process: true          # replay: pokreni interni sender. false = vanjski sender/Motive
+  # --- replay (OptiTrack CSV -> UDP) ---
+  take: data/raw/reference_mocap/vjezbe_02/hri_snimanje_vjezbe_02_x.csv
+  marker_names: [zapesce, palac, srednji, mali]
+  loop: true               # ponavljaj snimku u krug
+  drop_rate: 0.0           # umjetni gubitak paketa za testiranje [0..1]
+  # --- live (OptiTrack/Motive NatNet) — koristi se preko src.tools.live_sender ---
+  # Bridge proces (live_sender) čita NatNet i šalje UDP pipelineu (--external).
+  # Vrijednosti POTVRDITI u labosu (vidi TASK/LABOS_CHECKLIST.md).
+  live:
+    server_ip: 192.168.208.1     # Motive host
+    client_ip: 0.0.0.0           # lokalni NIC (0.0.0.0 = bilo koji)
+    use_multicast: true          # Motive default; unicast ako je tako konfiguriran
+    marker_name_map:             # naše ime -> substring u Motive marker imenu
+      zapesce: zapesce
+      srednji: srednji
+      mali: mali
+      palac: palac
+
+udp:
+  host: 127.0.0.1
+  port: 51000
+
+kinematics:
+  wrist_marker: zapesce
+  middle_marker: srednji
+  pinky_marker: mali
+  reference_idx: 0          # frame koji definira nulti (home) kut fleksije
+
+filter:
+  kind: one_euro            # one_euro | butterworth | ema | none
+  one_euro: { min_cutoff: 1.0, beta: 0.007, d_cutoff: 1.0 }
+  butterworth: { cutoff_hz: 6.0, order: 2 }
+  ema: { alpha: 0.2 }
+
+mapping:
+  joint_index: 3            # UR zglob: wrist_1 / J4 (0-based)
+  gain: 1.0                 # ljudski kut -> robot kut (skala)
+  invert: false
+  offset_from_home_rad: 0.0
+
+control:
+  mode: single_joint        # single_joint | multi_joint (puna 6-DOF ruka)
+  # Umjetno kašnjenje ulaza [ms] PRIJE sigurnosnog sloja (0 = isključeno).
+  # Za sweep utjecaja latencije podigni safety.signal_timeout_s iznad ove vrijednosti,
+  # inače fail-safe drži trajno (starost signala uključuje dodano kašnjenje).
+  added_latency_ms: 0
+
+# --- multi_joint (puna 6-DOF mimikrija ruke) ---
+# arm_axes: Euler dekompozicija po segmentu — POPUNJAVA KALIBRACIJA
+# (testing/lab/diag/arm_inspect.py). seq/idx/sign ovise o tome kako su lokalne osi
+# rigid bodyja definirane u Motiveu, pa NISU hardkodirani.
+arm_axes:                                   # AŽURIRANO 2026-09-01 (novi Markeri/Rigid Body)
+  shoulder: { seq: ZXY, yaw_idx: 2, yaw_sign: 1, pitch_idx: 1, pitch_sign: -1 }
+  elbow:    { mode: position, sign: 1 }
+  wrist:    { seq: XYZ, flex_idx: 2, dev_idx: 1, axial_idx: 0, signs: [1, 1, 1],
+              axial_from_forearm: false }
+# arm_mapping: kanal -> robotski zglob + per-zglob granice.
+arm_mapping:
+  - { joint: 0, channel: shoulder_yaw,   gain: 1.0, invert: false, offset_rad: 0.0, range_dps: 60, max_speed_dps: 60 }
+  - { joint: 1, channel: shoulder_pitch, gain: 2.2, invert: true, offset_rad: 0.0, range_dps: 90, max_speed_dps: 150 }
+  - { joint: 2, channel: elbow,          gain: 1.5, invert: false, offset_rad: 0.0, range_dps: 90, max_speed_dps: 120 }
+  - { joint: 3, channel: wrist_flex,     gain: 1.2, invert: true,  offset_rad: 0.0, range_dps: 60, max_speed_dps: 90 }
+  - { joint: 4, channel: wrist_dev,      gain: 1.2, invert: false, offset_rad: 0.0, range_dps: 60, max_speed_dps: 60 }
+  - { joint: 5, channel: wrist_axial,    gain: 1.2, invert: false, offset_rad: 0.0, range_dps: 90, max_speed_dps: 90 }
+
+safety:
+  max_joint_speed_dps: 150.0    # ograničenje brzine zgloba [deg/s]
+  joint_range_dps: 90.0         # dopušteni ± otklon oko home [deg]
+  signal_timeout_s: 0.15        # gubitak signala > ovo -> fail-safe zaustavljanje
+  # E-stop nema config ključ: rate-limit i range-clamp su NORMALNI radni slojevi
+  # (okidaju stalno) pa zaustavljanje na njima ne bi imalo smisla. Izlaz se
+  # zaustavlja na tri načina: hardverski gumb, istek signala (gore), te softverski
+  # SafetyGuard.trip_estop() — u runu preko --estop-after S (za dokazni test).
+
+robot:
+  sink: ursim               # ursim | ur3e | dry_run
+  ip: 192.168.208.128
+  # Referentna poza = robotski ekvivalent RAVNE ISPRUŽENE RUKE (nije robotski home).
+  # Namjesti robota rukom/pendantom, pa snimi: python -m src.tools.home_pose --capture
+  # null = koristi zatečenu pozu pri spajanju (stara nedeterministička varijanta).
+  home_q_deg: [250, -180, 0, 0, 90, 0]   # 2026-08-31, UR3e (base view na pendantu)
+  control_hz: 125
+  servoj: { lookahead_time: 0.1, gain: 300 }
+
+logging:
+  latency_csv: data/processed/latency.csv
+  # track_csv: kutovi po zglobu (ulaz/filtar/target/naredba[/stvarno]) po taktu.
+  # Prazno = ne logiraj kutove (zadano). Postavlja se po runu preko --track-csv.
+  track_csv: null
+  log_actual: false         # uz track_csv: čitaj i stvarni kut robota (RTDE getActualQ)
+  track_decimate: 1         # zapiši svaki N-ti takt (dugi endurance runovi)
+  level: INFO

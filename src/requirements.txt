@@ -1,0 +1,9 @@
+# Real-time OptiTrack -> UR pipeline (Python 3.10)
+# Instalacija: .venv/Scripts/python.exe -m pip install -r src/requirements.txt
+numpy>=1.24,<2.0
+scipy>=1.10
+pandas>=2.0
+PyYAML>=6.0
+ur_rtde==1.6.3          # RTDE control/receive (servoJ); cp310 wheel (Win) — radi i s URSim
+matplotlib>=3.7         # offline analiza/grafovi (latencija, filtri)
+pytest>=7.4             # testovi
