@@ -1,0 +1,105 @@
+name: Template Smoke Test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.ai/scripts/**'
+      - '.devcontainer/**'
+      - '.github/workflows/**'
+      - 'tests/**'
+      - 'VERSION'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  bootstrap-linux:
+    # Only run on the template repo itself, not on derived projects.
+    if: github.event.repository.name == 'LiteRealm'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Tectonic
+        uses: wtfjoke/setup-tectonic@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Bootstrap smoke test (bash)
+        run: bash tests/bootstrap-test.sh
+
+      - name: Bootstrap in place + verify structure
+        run: |
+          bash ./.ai/scripts/bootstrap.sh --name "Smoke_Test" --brain none
+          grep -q "Smoke_Test" STATE.md
+          grep -q "Smoke_Test" .ai/config/project.yaml
+          test -d docs/chapters
+          test -d src
+          test -d data/sources
+          test -f .ai/.bootstrapped
+
+      - name: Compile minimal LaTeX (Tectonic sanity, fontspec/XeTeX)
+        run: |
+          mkdir -p docs/build
+          printf '%s\n' \
+            '\documentclass{article}' \
+            '\usepackage{fontspec}' \
+            '\begin{document}Hello from LiteRealm.\end{document}' > docs/test.tex
+          tectonic -X compile docs/test.tex --outdir docs/build
+          test -f docs/build/test.pdf
+
+  bootstrap-windows:
+    if: github.event.repository.name == 'LiteRealm'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: .ps1 files must parse under Windows PowerShell 5.1
+        # The other PowerShell steps use pwsh 7 (reads UTF-8 fine). Windows PowerShell
+        # 5.1 reads a .ps1 as ANSI unless it has a BOM, so a non-ASCII char without a
+        # BOM corrupts strings and aborts parsing. This step reproduces that.
+        shell: powershell
+        run: |
+          $fail = 0
+          Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+            $errs = $null
+            [System.Management.Automation.PSParser]::Tokenize((Get-Content -Raw $_.FullName), [ref]$errs) | Out-Null
+            if ($errs) {
+              Write-Host "PARSE ERRORS in $($_.FullName):"
+              $errs | ForEach-Object { Write-Host "  $($_.Message)" }
+              $fail = 1
+            }
+          }
+          if ($fail) { exit 1 }
+          Write-Host "All .ps1 parse cleanly under Windows PowerShell 5.1."
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Bootstrap smoke test (PowerShell)
+        shell: pwsh
+        run: .\tests\bootstrap-test.ps1
+
+  devcontainer-build:
+    # Build the devcontainer image so the Codespaces "zero setup" path can't break
+    # silently. The other jobs install Tectonic via an Action, so they never exercise
+    # the Dockerfile — which is how a broken install path slipped through before.
+    if: github.event.repository.name == 'LiteRealm'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build devcontainer image
+        run: docker build -t literealm-devcontainer .devcontainer
+
+      - name: Verify Tectonic and uv are on PATH
+        run: |
+          docker run --rm literealm-devcontainer tectonic --version
+          docker run --rm literealm-devcontainer uv --version

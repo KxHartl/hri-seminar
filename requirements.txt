@@ -1,0 +1,22 @@
+# Teleoperacijski cjevovod i alati za analizu (Python 3.10)
+# Instalacija: pip install -r requirements.txt
+
+# Jezgrene numeričke biblioteke
+numpy>=1.24,<2.0
+scipy>=1.10
+pandas>=2.0
+PyYAML>=6.0
+
+# Upravljanje robotom Universal Robots (RTDE servoJ)
+# Windows cp310 wheel dostupan i testiran s pravim UR3e i URSim-om
+ur_rtde==1.6.3
+
+# Vizualizacija i statistička obrada
+matplotlib>=3.7
+
+# Testni okvir
+pytest>=7.4
+
+# Pomoćne biblioteke
+python-dotenv>=1.0
+

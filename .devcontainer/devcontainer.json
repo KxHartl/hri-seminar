@@ -1,0 +1,18 @@
+{
+  "name": "LiteRealm Environment",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "james-yu.latex-workshop"
+      ]
+    }
+  },
+  "mounts": [
+    "source=${localEnv:AGENTBRAIN_PATH:-${localEnv:HOME}/.agentbrain},target=/home/vscode/.agentbrain,type=bind,consistency=cached,readonly"
+  ],
+  "postCreateCommand": "bash ./.ai/scripts/bootstrap.sh --auto"
+}

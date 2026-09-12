@@ -1,0 +1,56 @@
+name: Initialize from Template
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  init:
+    # Only runs in repos created from this template — not on LiteRealm itself.
+    if: github.event.repository.name != 'LiteRealm'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if initialization is needed
+        id: check
+        run: |
+          if grep -q '"TBD"' .ai/config/project.yaml; then
+            echo "needs_init=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_init=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Replace TBD placeholders with repo name
+        if: steps.check.outputs.needs_init == 'true'
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          # project.yaml
+          sed -i "s/\"TBD\"/\"$REPO_NAME\"/" .ai/config/project.yaml
+
+          # STATE.md
+          sed -i "s/_TBD_/$REPO_NAME/g" STATE.md
+
+          # README — rename the H1 title (anchored to the exact heading, not line 1,
+          # so reordering the top of the README never breaks this).
+          sed -i "s/^# LiteRealm$/# $REPO_NAME/" README.md
+
+          # README — rewrite the description blockquote (matches any "**LiteRealm** is ..." wording)
+          sed -i "s/\*\*LiteRealm\*\* is .*$/**$REPO_NAME** — an AI-agent academic workspace, initialized from the [LiteRealm](https:\/\/github.com\/${{ github.repository_owner }}\/LiteRealm) template./" README.md
+
+      - name: Commit initialization
+        if: steps.check.outputs.needs_init == 'true'
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .ai/config/project.yaml STATE.md README.md
+          git commit -m "chore: initialize project as $REPO_NAME"
+          git push

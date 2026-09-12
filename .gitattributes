@@ -1,0 +1,21 @@
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
+
+*.ipynb linguist-generated=true
+
+# Git LFS — large source files (literature, datasets)
+data/sources/*.pdf filter=lfs diff=lfs merge=lfs -text
+data/sources/*.docx filter=lfs diff=lfs merge=lfs -text
+data/sources/*.pptx filter=lfs diff=lfs merge=lfs -text
+data/sources/*.xlsx filter=lfs diff=lfs merge=lfs -text
+data/raw/*.pdf filter=lfs diff=lfs merge=lfs -text
+data/raw/*.csv filter=lfs diff=lfs merge=lfs -text
+data/raw/*.zip filter=lfs diff=lfs merge=lfs -text

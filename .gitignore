@@ -1,0 +1,55 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# Generated pipeline artifacts (regenerable: latency logs, plots, processed npz)
+data/processed/*.csv
+data/processed/*.png
+data/processed/*.npz
+data/processed/*.json
+!data/processed/.gitkeep
+# ...except the filter/sensitivity benchmark summary:
+!data/processed/benchmarks_02092026/filter_bench.summary.json
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# LaTeX build directories
+docs/**/build/
+
+# Generated PDFs in docs build
+docs/**/*.pdf
+!docs/figures/*.pdf
+
+# Generated PDFs in dist
+dist/**/*.pdf
+!dist/main.pdf
+!dist/v1.5/main.pdf
+
+# Notes / Sandbox
+IDEAS.md
+TODO.md
+TestRealm/
