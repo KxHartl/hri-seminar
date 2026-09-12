@@ -1,0 +1,422 @@
+{
+  "file": "sec_03_estop.track.csv",
+  "n": 2500,
+  "duration_s": 20.052,
+  "effective_rate_hz": 124.6,
+  "joints": {
+    "J1": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 124.6,
+      "mapping": {
+        "channel": "shoulder_yaw",
+        "gain": 1.0,
+        "invert": false,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -16.46,
+        25.36
+      ],
+      "range_scaled_in_deg": [
+        -16.46,
+        25.36
+      ],
+      "range_cmd_deg": [
+        -15.52,
+        24.37
+      ],
+      "input_to_command": {
+        "rmse_deg": 1.7275658610171711,
+        "max_abs_dev_deg": 3.6044,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9923209876578197,
+        "rmse_aligned_deg": 0.4196494888896956
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 1.7275658610171711,
+        "max_abs_dev_deg": 3.6044,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9923209876578197,
+        "rmse_aligned_deg": 0.4196494888896956
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 3.1311932571267462,
+        "max_abs_dev_deg": 5.6822,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.974524806082996,
+        "rmse_aligned_deg": 0.4227959271605042
+      },
+      "target_to_actual": {
+        "rmse_deg": 1.425257444751649,
+        "max_abs_dev_deg": 2.2071000000000005,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9946309514482,
+        "rmse_aligned_deg": 0.08203069222431811
+      },
+      "input_to_actual": {
+        "rmse_deg": 3.1311932571267462,
+        "max_abs_dev_deg": 5.6822,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.974524806082996,
+        "rmse_aligned_deg": 0.4227959271605042
+      },
+      "command_to_actual": {
+        "rmse_deg": 1.425257444751649,
+        "max_abs_dev_deg": 2.2071000000000005,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9946309514482,
+        "rmse_aligned_deg": 0.08203069222431811
+      },
+      "safety_events": {
+        "ratelim_ticks": 0,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    },
+    "J2": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 124.6,
+      "mapping": {
+        "channel": "shoulder_pitch",
+        "gain": 2.2,
+        "invert": false,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -10.36,
+        7.08
+      ],
+      "range_scaled_in_deg": [
+        -22.78,
+        15.57
+      ],
+      "range_cmd_deg": [
+        -20.67,
+        12.41
+      ],
+      "input_to_command": {
+        "rmse_deg": 6.89478085847839,
+        "max_abs_dev_deg": 12.5229,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9855668848038425,
+        "rmse_aligned_deg": 6.853546683586941
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 1.9838728246023032,
+        "max_abs_dev_deg": 5.59524,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9855668848038426,
+        "rmse_aligned_deg": 0.8750974261300857
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 3.412280853894814,
+        "max_abs_dev_deg": 7.84654,
+        "lag_ms": 272.78199999992836,
+        "corr": 0.9568600560958378,
+        "rmse_aligned_deg": 0.8749967416130273
+      },
+      "target_to_actual": {
+        "rmse_deg": 1.5057288989708606,
+        "max_abs_dev_deg": 2.4532999999999996,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9913991201039802,
+        "rmse_aligned_deg": 0.08746909991902203
+      },
+      "input_to_actual": {
+        "rmse_deg": 7.038128114405136,
+        "max_abs_dev_deg": 12.709900000000001,
+        "lag_ms": 272.78199999992836,
+        "corr": 0.9568600560958378,
+        "rmse_aligned_deg": 6.80462496752092
+      },
+      "command_to_actual": {
+        "rmse_deg": 1.5057288989708606,
+        "max_abs_dev_deg": 2.4532999999999996,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9913991201039802,
+        "rmse_aligned_deg": 0.08746909991902203
+      },
+      "safety_events": {
+        "ratelim_ticks": 0,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    },
+    "J3": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 124.6,
+      "mapping": {
+        "channel": "elbow",
+        "gain": 1.5,
+        "invert": false,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -2.24,
+        39.77
+      ],
+      "range_scaled_in_deg": [
+        -3.36,
+        59.66
+      ],
+      "range_cmd_deg": [
+        -1.32,
+        57.92
+      ],
+      "input_to_command": {
+        "rmse_deg": 11.821108007561897,
+        "max_abs_dev_deg": 21.398599999999995,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9799861304136581,
+        "rmse_aligned_deg": 11.573690128253077
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 4.289794112553189,
+        "max_abs_dev_deg": 7.8309,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.979986130413658,
+        "rmse_aligned_deg": 0.7483466602316974
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 7.916856839978098,
+        "max_abs_dev_deg": 13.2863,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.9311283603326695,
+        "rmse_aligned_deg": 0.793080176094719
+      },
+      "target_to_actual": {
+        "rmse_deg": 3.659009842149649,
+        "max_abs_dev_deg": 5.712299999999999,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9849290132164106,
+        "rmse_aligned_deg": 0.16069809372848148
+      },
+      "input_to_actual": {
+        "rmse_deg": 12.70819599528147,
+        "max_abs_dev_deg": 23.781599999999997,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.9311283603326692,
+        "rmse_aligned_deg": 11.465326150959154
+      },
+      "command_to_actual": {
+        "rmse_deg": 3.659009842149649,
+        "max_abs_dev_deg": 5.712299999999999,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9849290132164106,
+        "rmse_aligned_deg": 0.16069809372848148
+      },
+      "safety_events": {
+        "ratelim_ticks": 0,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    },
+    "J4": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 124.6,
+      "mapping": {
+        "channel": "wrist_flex",
+        "gain": 1.2,
+        "invert": true,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -49.72,
+        2.21
+      ],
+      "range_scaled_in_deg": [
+        -2.66,
+        59.66
+      ],
+      "range_cmd_deg": [
+        -0.63,
+        57.36
+      ],
+      "input_to_command": {
+        "rmse_deg": 63.39573109856846,
+        "max_abs_dev_deg": 106.2019,
+        "lag_ms": 136.39099999996418,
+        "corr": -0.9647934984186641,
+        "rmse_aligned_deg": 63.75980082717087
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 5.570351003985052,
+        "max_abs_dev_deg": 9.394340000000003,
+        "lag_ms": 136.39099999996418,
+        "corr": 0.9648074028015979,
+        "rmse_aligned_deg": 0.8862453411232042
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 10.41049213174515,
+        "max_abs_dev_deg": 16.549840000000003,
+        "lag_ms": 256.7359999999326,
+        "corr": 0.8758749881842804,
+        "rmse_aligned_deg": 1.0067131969760807
+      },
+      "target_to_actual": {
+        "rmse_deg": 4.881536982577106,
+        "max_abs_dev_deg": 7.554100000000002,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9717979720925817,
+        "rmse_aligned_deg": 0.21457357446140213
+      },
+      "input_to_actual": {
+        "rmse_deg": 62.772582462874915,
+        "max_abs_dev_deg": 104.79320000000001,
+        "lag_ms": 256.7359999999326,
+        "corr": -0.8758749881842807,
+        "rmse_aligned_deg": 63.81586891441646
+      },
+      "command_to_actual": {
+        "rmse_deg": 4.880413800929589,
+        "max_abs_dev_deg": 7.544799999999999,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.971811071067426,
+        "rmse_aligned_deg": 0.2133144465681782
+      },
+      "safety_events": {
+        "ratelim_ticks": 23,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    },
+    "J5": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 124.6,
+      "mapping": {
+        "channel": "wrist_dev",
+        "gain": 1.2,
+        "invert": false,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -1.74,
+        30.02
+      ],
+      "range_scaled_in_deg": [
+        -2.09,
+        36.02
+      ],
+      "range_cmd_deg": [
+        -0.58,
+        35.11
+      ],
+      "input_to_command": {
+        "rmse_deg": 4.076437109441037,
+        "max_abs_dev_deg": 7.784099999999999,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9838424837218981,
+        "rmse_aligned_deg": 3.576085205590469
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 2.2468856560298742,
+        "max_abs_dev_deg": 4.4989599999999985,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9838424837218983,
+        "rmse_aligned_deg": 0.5128630196863533
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 4.080069867756973,
+        "max_abs_dev_deg": 7.035,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.9467401152024261,
+        "rmse_aligned_deg": 0.5238899283076984
+      },
+      "target_to_actual": {
+        "rmse_deg": 1.8576896725147614,
+        "max_abs_dev_deg": 2.964500000000001,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.988842420480896,
+        "rmse_aligned_deg": 0.07777701951468399
+      },
+      "input_to_actual": {
+        "rmse_deg": 5.098660169564941,
+        "max_abs_dev_deg": 9.7729,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.9467401152024258,
+        "rmse_aligned_deg": 3.561401135045885
+      },
+      "command_to_actual": {
+        "rmse_deg": 1.8576896725147614,
+        "max_abs_dev_deg": 2.964500000000001,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.988842420480896,
+        "rmse_aligned_deg": 0.07777701951468399
+      },
+      "safety_events": {
+        "ratelim_ticks": 0,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    },
+    "J6": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 124.6,
+      "mapping": {
+        "channel": "wrist_axial",
+        "gain": 1.2,
+        "invert": false,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -39.86,
+        22.28
+      ],
+      "range_scaled_in_deg": [
+        -47.83,
+        26.74
+      ],
+      "range_cmd_deg": [
+        -46.42,
+        25.31
+      ],
+      "input_to_command": {
+        "rmse_deg": 4.859718501598215,
+        "max_abs_dev_deg": 9.3294,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9944154980727269,
+        "rmse_aligned_deg": 4.45127255151611
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 2.6320817097715787,
+        "max_abs_dev_deg": 4.872799999999999,
+        "lag_ms": 144.41399999996207,
+        "corr": 0.9944154980727273,
+        "rmse_aligned_deg": 0.5002188001935178
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 4.827777055737151,
+        "max_abs_dev_deg": 8.08932,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.981082150914965,
+        "rmse_aligned_deg": 0.5030127372466294
+      },
+      "target_to_actual": {
+        "rmse_deg": 2.2164151489330695,
+        "max_abs_dev_deg": 3.3973000000000004,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9959632111149561,
+        "rmse_aligned_deg": 0.11978740287410833
+      },
+      "input_to_actual": {
+        "rmse_deg": 5.966937418456138,
+        "max_abs_dev_deg": 11.070999999999998,
+        "lag_ms": 264.75899999993044,
+        "corr": 0.9810821509149648,
+        "rmse_aligned_deg": 4.41477999985526
+      },
+      "command_to_actual": {
+        "rmse_deg": 2.2164151489330695,
+        "max_abs_dev_deg": 3.3973000000000004,
+        "lag_ms": 120.3449999999684,
+        "corr": 0.9959632111149561,
+        "rmse_aligned_deg": 0.11978740287410833
+      },
+      "safety_events": {
+        "ratelim_ticks": 0,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+id,vrijeme,izvor,mod,filter,drop_rate,added_lat_ms,signal_timeout_s,speed_dps,range_deg,seconds,latency_median_ms,latency_p95_ms,latency_p99_ms,jitter_ms,rx_rate_hz,rx_loss_pct,rmse_deg,lag_ms,ratelim_ticks,rangeclamp_ticks,halted_ticks,video,foto,opazanja
+T-01,,live_sdk,1dof_ursim,one_euro,0,0,0.15,25,30,60,,,,,,,,,,,,,,vjernost - URSim referenca
+T-02,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,60,,,,,,,,,,,,,,VJERNOST - glavni run (lakat->J3)
+T-03,,live_arm,6dof_ur3,one_euro,0,0,0.15,12,15,60,,,,,,,,,,,,,,vjernost 6-DOF
+T-04,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,filtri: baseline
+T-05,,live_sdk,1dof_ur3,none,0,0,0.15,25,30,30,,,,,,,,,,,,,,filtri: bez filtra
+T-06,,live_sdk,1dof_ur3,butterworth,0,0,0.15,25,30,30,,,,,,,,,,,,,,filtri: butterworth
+T-07,,live_sdk,1dof_ur3,ema,0,0,0.15,25,30,30,,,,,,,,,,,,,,filtri: EMA
+T-08,,live_sdk,1dof_ur3,one_euro,0,0,0.15,15,30,30,,,,,,,,,,,,,,SIGURNOST rate-limit (brzi flick) - VIDEO
+T-09,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,20,30,,,,,,,,,,,,,,SIGURNOST range-limit (prekoraci) - VIDEO
+T-10,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,SIGURNOST fail-safe okluzija - VIDEO
+T-11,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,SIGURNOST fail-safe prekid streama - VIDEO
+T-12a,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,SIGURNOST softverski e-stop (--estop-after 15)
+T-12b,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,SIGURNOST hardverski e-stop - VIDEO
+T-13a,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,45,,,,,,,,,,,,,,latencija sweep 0 ms
+T-13b,,live_sdk,1dof_ur3,one_euro,0,50,0.30,25,30,45,,,,,,,,,,,,,,latencija sweep 50 ms
+T-13c,,live_sdk,1dof_ur3,one_euro,0,100,0.40,25,30,45,,,,,,,,,,,,,,latencija sweep 100 ms
+T-13d,,live_sdk,1dof_ur3,one_euro,0,200,0.60,25,30,45,,,,,,,,,,,,,,latencija sweep 200 ms
+T-13e,,live_sdk,1dof_ur3,one_euro,0,400,0.90,25,30,45,,,,,,,,,,,,,,latencija sweep 400 ms
+T-14,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,gubitak 0%
+T-15,,live_sdk,1dof_ur3,one_euro,0.05,0,0.15,25,30,30,,,,,,,,,,,,,,gubitak 5%
+T-16,,live_sdk,1dof_ur3,one_euro,0.10,0,0.15,25,30,30,,,,,,,,,,,,,,gubitak 10%
+T-17,,live_sdk,1dof_ur3,one_euro,0.20,0,0.15,25,30,30,,,,,,,,,,,,,,gubitak 20%
+T-18,,live_sdk,1dof_ur3,one_euro,0.30,0,0.15,25,30,30,,,,,,,,,,,,,,gubitak 30%
+T-19,,live_arm,6dof_ur3,one_euro,0,0,0.15,12,15,600,,,,,,,,,,,,,,ENDURANCE 10 min (--track-decimate 5)
+T-20,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,30,,,,,,,,,,,,,,nagli pokret - 5 flickova
+T-21,,live_sdk,1dof_ur3,one_euro,0,0,0.15,25,30,60,,,,,,,,,,,,,,rezerva: ponovljivost T-02
