@@ -37,7 +37,11 @@ Detaljno niže. **Prsti na e-stopu tijekom svakog pokreta robota.**
 - Svi uređaji na **istom switchu**.
 - ⚠️ PC ima i drugu karticu `Ethernet 4` (`192.168.40.22`) na istoj podmreži —
   **idealno je ugasiti** da ne muti rutiranje (inače radi, ali oprez).
-- Rigid bodyji u Motiveu: **`nadlaktica` ID=18, `podlaktica` ID=17, `saka` ID=16**.
+- Rigid bodyji u Motiveu: **`nadlaktica`, `podlaktica`, `saka`**.
+  ⚠️ **Stream ID-evi se mijenjaju sa scenom u Motiveu** — nisu fiksni. Zadnji
+  potvrđeni set (i onaj koji koriste naredbe niže) je **nadlaktica=25, podlaktica=24,
+  saka=16**. Ranija sesija imala je 18 / 17 / 16. **Uvijek ih očitaj u Motiveu prije
+  demonstracije** (korak 2.5) i upiši u `--id-upper/--id-fore/--id-hand`.
 
 ### Provjera mreže
 ```powershell
@@ -54,6 +58,9 @@ U Motiveu (na PC-u `.31`):
 2. **Transmission Type = Unicast** (multicast je u ovom labosu davao 0 okvira!).
 3. **Stream Rigid Bodies = ON**.
 4. U 3D viewu provjeri da su sva tri rigid bodyja **tracked / vidljiva** (ne sivi/izgubljeni).
+5. **Očitaj stream ID-eve** (Assets pane → svaki rigid body → *Streaming ID*) i usporedi
+   ih s `--id-upper/--id-fore/--id-hand` u koraku 4. Ako se **sva tri** razlikuju, most
+   šuti bez ijedne poruke o grešci (v. korak 4) — zato se ovaj korak ne preskoči.
 
 ### Provjera veze (službeni SDK ground-truth)
 ```powershell
@@ -90,8 +97,11 @@ Most čita OptiTrack (NatNet SDK) i šalje 6 kanala kuta na UDP `:51000`.
 .venv/Scripts/python.exe -m src.tools.live_sender --arm --server-ip 192.168.40.31 --client-ip 192.168.40.30 --id-upper 25 --id-fore 24 --id-hand 16 --port 51000
 ```
 - U logu vidiš `axes={...}` (učitana kalibracija) i `Šaljem markere -> 127.0.0.1:51000`.
-- Ako piše `Nedostaju rigid bodies ... vidljivi: []` → **uđi u volumen**; most šalje
-  tek kad su sva tri tijela vidljiva.
+- Ako piše `Privremeno nedostaje dio krutih tijela [...] (vidljivi: [...])` → **uđi u
+  volumen**; popis `vidljivi:` pritom ispisuje **stvarne stream ID-eve iz Motivea**, pa
+  posluži i za ispravak krivo upisanih ID-eva.
+- ⚠️ Ako most **šuti** (nema ni `Šaljem markere` ni upozorenja), sva tri ID-a su kriva:
+  izvor tiho preskače svaki okvir u kojem ne prepozna nijedno tijelo. Vrati se na korak 2.5.
 
 > ℹ️ Ignoriraj brbljave `MoCap Frame: N` retke — to ispisuje SDK, bezopasno.
 >
@@ -179,8 +189,9 @@ pipeline aktivira fail-safe (`[HOLD]`, zglob se zamrzne) i robot "stane".
 
 | Simptom | Uzrok / rješenje |
 |---|---|
-| `Nije primljen nijedan marker-frame` | Most ne šalje. Provjeri Terminal A; jesi li u volumenu; jesu li sva 3 rigid bodyja tracked. |
+| `Nije primljen nijedan marker-frame` | Most ne šalje. Provjeri Terminal A; jesi li u volumenu; jesu li sva 3 rigid bodyja tracked; **jesu li `--id-*` jednaki Streaming ID-evima u Motiveu** (korak 2.5). |
 | Most: `vidljivi: []` | Tijela izvan kamera ili Motive ne streama rigid bodye. Uđi u volumen / provjeri Motive (korak 2). |
+| Most **šuti**, bez ijedne poruke | Sva tri `--id-*` su kriva — izvor tiho preskače okvire. Očitaj Streaming ID-eve u Motiveu (korak 2.5). |
 | `frames/3s -> 0` u sdk_probe | Motive streaming OFF, krivi interface, ili multicast umjesto **unicast**. |
 | `Please enable remote control` | Vrijedi i za **URSim** i za lab **UR3e** (`.50`): PolyScope ☰ → Settings → System → Remote Control → Enable, pa gore desno prebaci na *Remote*. |
 | Robot se ne miče | Krivi `--ip`/`--sink`; robot ne u mode 7; pipeline 0 frameova; granice 0. Provjeri korak 3 i 5. |

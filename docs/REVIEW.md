@@ -1,6 +1,6 @@
 # REVIEW — pregled prije predaje
 
-**Datum:** 2026-09-02 · **Verzija rada:** `dist/dev/main.pdf`, 10/12 stranica
+**Datum:** 2026-09-13 · **Verzija rada:** `dist/v1.5/main.pdf`, 12/12 stranica
 **Prethodna recenzija (2026-06-29) je poništena** — rad je od tada napisan iznova
 oko šesterostupanjske lab sesije, pa se njezini nalazi više ne odnose ni na jedan
 postojeći odlomak.
@@ -61,13 +61,14 @@ pripadnih `*.summary.json`. Nalazi i ispravci:
 
 | Zahtjev | Status |
 |---|---|
-| Znanstveni rad, ≤ 12 stranica | 10 stranica |
+| Znanstveni rad, ≤ 12 stranica | 12 stranica (na limitu) |
 | Struktura (sažetak → uvod → metodologija → postav → rezultati → rasprava → zaključak) | ispunjeno |
-| ≥ 5 znanstvenih radova, svi ≥ 2021, IEEE/Springer/Elsevier/ACM | 15 ključeva, 13 iz kvalificiranih izvora (uz `casiez2012` kao izvorni rad o One-Euro filtru i `zhu2022` kao potporni) |
+| ≥ 5 znanstvenih radova, svi ≥ 2021, IEEE/Springer/Elsevier/ACM | 16 ključeva (15 radova + norma ISO/TS 15066), 13 iz kvalificiranih izvora (uz `casiez2012` kao izvorni rad o One-Euro filtru i `zhu2022` kao potporni) |
 | Literatura korištena, ne samo citirana | svaki ključ pojavljuje se u obrazloženju metode ili u usporedbi s vlastitim rješenjem |
-| Nema izmišljenih `\cite` ključeva | provjereno: 15 u `.bib`, 15 citirano, presjek potpun |
+| Nema izmišljenih `\cite` ključeva | provjereno: 16 u `.bib`, 16 citirano, presjek potpun |
 | Implementacija + evaluacija | `src/`, 79 testova, 21 laboratorijski run |
-| Demonstracija u laboratoriju | `testing/lab/protocols/07_demo_runbook.md`, video zapis u `data/raw/lab_session_01092026_020000/camera/` |
+| Kolegij naveden na naslovnici | dodan redak *Kolegij: Interakcija čovjeka i robota* (`docs/main.tex`) |
+| Demonstracija u laboratoriju | `testing/lab/protocols/07_demo_runbook.md`, video zapisi u `data/processed/video_clips_01092026/camera/` |
 
 ## 4. Formatiranje (AGENTS.md §8)
 
@@ -82,10 +83,18 @@ pripadnih `*.summary.json`. Nalazi i ispravci:
 
 ## 5. Otvoreno prije predaje
 
-1. `dist_version: v1.0` u `.ai/config/project.yaml` i finalni build u `dist/v1.0/`.
+1. **Ispunjeni pHRI upitnik nije u repou.** §5.4 rada navodi da su operater i
+   promatrač ispunili strukturirani upitnik, a §2 ove recenzije poziva se na
+   `SUBJEKTIVNI_UPITNIK_REZULTATI.md` kao izvor tvrdnje o prijelazu vođenja na 100 ms.
+   Ta datoteka ne postoji — u repou je samo prazan predložak
+   `testing/lab/templates/phri_questionnaire.md`. To je jedina numerička tvrdnja u radu
+   bez provjerljivog izvora; ispunjeni zapis treba dodati u
+   `data/raw/lab_session_01092026_020000/` i ovdje ispraviti putanju.
 2. Mentor se ne imenuje (odluka autora) — polja `professor_*` uklonjena iz
-   `project.yaml`; naslovnica rada ih ionako ne ispisuje.
+   `project.yaml`; naslovnica rada ih ionako ne ispisuje. Kolegij je od v1.5 naveden.
 3. Neizvedeni pokusi (URSim referenca, endurance, ponovljivost) i modelirani
    gubitak paketa navedeni su u Ograničenjima. Ako se otvori termin u
    laboratoriju, prioritet je desetominutni endurance run i ispravno injektiran
    gubitak preko `live_sender --drop-rate`.
+4. Izvor prezentacije (`docs/presentation/`) nije u repou — samo izvezeni `.pptx` i
+   `.pdf`. Izmjene slajdova su ručne.
