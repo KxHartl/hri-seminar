@@ -1,6 +1,6 @@
 # REVIEW — pregled prije predaje
 
-**Datum:** 2026-09-13 · **Verzija rada:** `dist/v1.5/main.pdf`, 12/12 stranica
+**Datum:** 2026-09-13 · **Verzija rada:** `dist/v1/HRI_seminar_Kresimir_Hartl.pdf`, 12/12 stranica
 **Prethodna recenzija (2026-06-29) je poništena** — rad je od tada napisan iznova
 oko šesterostupanjske lab sesije, pa se njezini nalazi više ne odnose ni na jedan
 postojeći odlomak.

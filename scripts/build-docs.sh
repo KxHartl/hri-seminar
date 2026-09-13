@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Build Documentation Script
-# Usage: ./scripts/build-docs.sh [--clean] [--force] [--engine tectonic|latexmk] [--version v1.5]
+# Usage: ./scripts/build-docs.sh [--clean] [--force] [--engine tectonic|latexmk] [--version v1]
 
 clean=false
 force=false
 engine="auto"
-version="v1.5"
+version="v1"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -67,9 +67,10 @@ echo "$tex_files" | while read -r file; do
   if [[ $? -eq 0 ]]; then
     pdf_name="$(basename "$file" .tex).pdf"
     if [[ -f "${out_dir}/${pdf_name}" ]]; then
-      cp "${out_dir}/${pdf_name}" "${dist_dir}/"
-      cp "${out_dir}/${pdf_name}" "${root_dir}/dist/"
-      echo "Done: $pdf_name -> dist/${version}/ and dist/"
+      dist_name="$pdf_name"
+      [[ "$pdf_name" == "main.pdf" ]] && dist_name="HRI_seminar_Kresimir_Hartl.pdf"
+      cp "${out_dir}/${pdf_name}" "${dist_dir}/${dist_name}"
+      echo "Done: $dist_name -> dist/${version}/"
     fi
 
     if [[ "$max_pages" -gt 0 ]]; then

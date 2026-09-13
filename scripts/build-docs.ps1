@@ -1,12 +1,12 @@
 # Build Documentation Script
-# Usage: .\scripts\build-docs.ps1 [-Clean] [-Force] [-Engine tectonic|latexmk] [-Version v1.5]
+# Usage: .\scripts\build-docs.ps1 [-Clean] [-Force] [-Engine tectonic|latexmk] [-Version v1]
 
 param (
     [switch]$Clean,
     [switch]$Force,
     [ValidateSet("auto", "tectonic", "latexmk")]
     [string]$Engine = "auto",
-    [string]$Version = "v1.5"
+    [string]$Version = "v1"
 )
 
 $rootDir = git rev-parse --show-toplevel 2>$null
@@ -61,9 +61,9 @@ foreach ($file in $texFiles) {
         $pdfName = $file.BaseName + ".pdf"
         $generatedPdf = Join-Path $outDir $pdfName
         if (Test-Path $generatedPdf) {
-            Copy-Item $generatedPdf -Destination (Join-Path $distDir $pdfName) -Force
-            Copy-Item $generatedPdf -Destination (Join-Path $rootDir "dist\$pdfName") -Force
-            Write-Host "Done: $pdfName -> dist/$Version/ and dist/" -ForegroundColor Green
+            $distName = if ($file.BaseName -eq "main") { "HRI_seminar_Kresimir_Hartl.pdf" } else { $pdfName }
+            Copy-Item $generatedPdf -Destination (Join-Path $distDir $distName) -Force
+            Write-Host "Done: $distName -> dist/$Version/" -ForegroundColor Green
         }
 
         if ($maxPages -gt 0) {

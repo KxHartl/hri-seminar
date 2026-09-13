@@ -25,7 +25,8 @@ testing/
 │   │   ├── 05_troubleshooting.md      # Common failure modes and recovery steps
 │   │   ├── 06_live_optitrack.md       # Live NatNet streaming instructions
 │   │   ├── 07_demo_runbook.md         # Live demonstration runbook
-│   │   ├── 08_session_plan.md         # Master experimental test matrix plan
+│   │   ├── 08_session_plan.md         # Master experimental test matrix plan (T-01 … T-21)
+│   │   ├── 08_future_test_proposals.md# Proposed experiments that were not performed
 │   │   ├── 09_motive_setup.md         # Motive 3.0.1 camera calibration & rigid body setup
 │   │   ├── 10_subjective_evaluation.md# Operator and observer pHRI evaluation logs
 │   │   └── cheatsheet.md              # Quick-reference command cheat sheet
@@ -49,25 +50,34 @@ testing/
 
 ## Instructions
 
+Run the scripts from their own directory; each one loads `_common.ps1` from `$PSScriptRoot`.
+
 ### 1. Virtual Simulation (URSim)
 ```powershell
-# Verify connection to URSim virtual machine
-.\testing\virtual\scripts\00_ursim_check.ps1 -Ip 192.168.208.128
+cd testing\virtual\scripts
 
-# Rehearse 6-DOF motion with mock input generator
-.\testing\virtual\scripts\02_free_6dof_mock.ps1 -Ip 192.168.208.128 -Seconds 30
+# Verify connection to the URSim virtual machine (no motion)
+.\00_ursim_check.ps1 -UrsimIp 192.168.208.128
+
+# Rehearse 6-DOF motion with the mock input generator
+.\02_free_6dof_mock.ps1 -UrsimIp 192.168.208.128 -Seconds 30
 ```
 
 ### 2. Physical Robotics Lab (UR3e)
 ```powershell
-# Preflight hardware and network check
-.\testing\lab\scripts\00_check.ps1 -Ip 192.168.40.50
+cd testing\lab\scripts
+
+# Preflight hardware and network check (no motion)
+.\00_check.ps1 -RobotIp 192.168.40.50 -MotiveIp 192.168.40.31
 
 # Move robot to canonical ready pose
-.\testing\lab\scripts\01_home.ps1 -Ip 192.168.40.50
+.\01_home.ps1 -RobotIp 192.168.40.50
 
-# Run the complete automated 21-run test suite
-.\testing\lab\scripts\run_all_tests.ps1
+# Run the complete automated test matrix (T-02 … T-20)
+.\run_all_tests.ps1
 ```
 
-All recorded telemetry from physical experiments is saved to `data/raw/lab_session_01092026_020000/telemetry/`.
+The scripts write into `testing/lab/results/` and `testing/virtual/scripts/results/`
+(created on first run). Telemetry from the physical session of 1–2 Sep 2026 was archived
+to `data/raw/lab_session_01092026_020000/telemetry/` — that is where the figures quoted
+in the paper come from.

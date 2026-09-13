@@ -32,7 +32,16 @@ data/
 │   │   └── optitrack_screen/      # 20 cut Motive 3D viewport screen captures (.mp4)
 │   ├── benchmarks_02092026/       # Filter benchmark results (filter_bench.summary.json)
 │   ├── packet_loss_sweep_02092026/# Deterministic packet loss model (L-00 to L-30)
-│   └── simulation_runs_31082026/  # Virtual URSim simulation logs
+│   ├── simulation_runs_31082026/  # Virtual URSim simulation logs
+│   └── sim_comparison_04092026/   # Real UR3e vs. URSim replay comparison
+│       ├── COMPARISON_REPORT.md   # Per-run RMSE / lag / correlation write-up
+│       ├── comparison_metrics.csv # Same figures as a table (+ .json)
+│       ├── manifest.yaml          # Which runs were replayed and how
+│       └── telemetry/             # 18 URSim replay runs (.csv, .track.csv, .png)
 │
-└── sources/                       # 13 peer-reviewed open-access literature PDFs
+└── sources/                       # 13 peer-reviewed literature PDFs (Git LFS)
 ```
+
+The run IDs used here (`T-02` … `T-20`) map to the public IDs used in the paper and
+video filenames (`T1a` … `T5e`) through
+[`raw/lab_session_01092026_020000/telemetry/media_catalog.md`](raw/lab_session_01092026_020000/telemetry/media_catalog.md).

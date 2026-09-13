@@ -24,7 +24,8 @@ na istoj podmreži — povremeno muti rutiranje/multicast; idealno ugasiti.
 |---|---|
 | `sdk_probe.py` | Brza provjera veze preko **službenog** SDK klijenta (ground-truth). |
 | `natnet_unicast_probe.py` | Transport preko **naših** parsera (NAT_CONNECT+keepalive). ~480 okvira/4s. |
-| `sdk_inspect.py` | **Najvažnije sutra**: ispiše imena marker-setova, imena markera (redoslijed) i pozicije. |
+| `sdk_inspect.py` | Ispiše imena marker-setova, imena markera (redoslijed) i pozicije. |
+| `arm_inspect.py` | Vođena kalibracija osi segmenata ruke — popunjava `arm_axes` u `src/config/default.yaml` prije 6-DOF rada. Pokreće ga i `../scripts/04_axis_calibration.ps1`. |
 
 ```bash
 # SDK ground-truth (unicast):

@@ -26,10 +26,11 @@ docs/
 ```
 
 Skripta koristi **Tectonic** (ili `latexmk` kao zamjenu), kompilira `docs/main.tex`
-i kopira rezultat u `dist/<verzija>/main.pdf` te u `dist/main.pdf`.
+i kopira rezultat u `dist/<verzija>/HRI_seminar_Kresimir_Hartl.pdf`
+(zadana verzija: `v1`).
 
 Korisne zastavice: `-Clean` (obriši međuprodukte), `-Engine tectonic|latexmk`,
-`-Version v1.5` (odredište u `dist/`).
+`-Version v1` (odredište u `dist/`).
 
 ## Ograničenje opsega
 

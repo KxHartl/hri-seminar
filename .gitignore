@@ -49,8 +49,7 @@ docs/**/*.pdf
 
 # Generated PDFs in dist
 dist/**/*.pdf
-!dist/main.pdf
-!dist/v1.5/main.pdf
+!dist/v1/HRI_seminar_Kresimir_Hartl.pdf
 
 # Raw proprietary Motive session files (>200MB, not usable without Motive license)
 *.tak
