@@ -3,6 +3,7 @@
 Thumbs.db
 .idea/
 .vscode/*.log
+~$*
 
 # Python
 __pycache__/
@@ -48,6 +49,9 @@ docs/**/*.pdf
 dist/**/*.pdf
 !dist/main.pdf
 !dist/v1.5/main.pdf
+
+# Raw proprietary Motive session files (>200MB, not usable without Motive license)
+*.tak
 
 # Notes / Sandbox
 IDEAS.md

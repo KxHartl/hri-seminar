@@ -1,0 +1,20 @@
+% 06-zakljucak.tex — Conclusion and future work (TASK §F.7).
+\section{Zaključak}
+
+Zadatak rada bio je preslikati zakret jednog ljudskog zgloba u stvarnom vremenu na zglob robota Universal Robots, uz strogo definirane granice sigurnog rada. Prikazani sustav to ostvaruje kanalom lakta na lakat robota (zglob J3) te proširuje na vođenje svih šest zglobova kolaborativnog robota UR3e izravno zglob na zglob bez inverzne kinematike.
+
+Mjerenja na stvarnom robotu kroz 21 eksperimentalni pokus potvrđuju tri ključna nalaza.
+\begin{enumerate}
+  \item \textbf{Računalni lanac nije usko grlo.} Proračun upravljačke petlje traje 3 do 4 ms na taktu od 125 Hz, ispod jednog postotka ukupnog dinamičkog odziva, što potvrđuje punu izvedivost u stvarnom vremenu.
+  \item \textbf{Visoka kinematička vjernost.} Nakon uklanjanja faznog pomaka srednja pogreška praćenja iznosi 0,4 do 3,0$^\circ$ pri prirodnom tempu, a do 6,2$^\circ$ pri izoliranom gibanju pojedinog zgloba, uz korelaciju 0,68 do 0,95.
+  \item \textbf{Dekompozicija dinamičkog odziva.} Ukupno kašnjenje od pokreta ruke do reakcije robota iznosi 385 ms na laktu, a razlaganjem po lancu otpada na fazni pomak One-Euro filtra (200 ms), sigurnosni sloj ograničenja brzine (73 ms) i regulaciju pogona robota (112 ms). Pogonski stupanj ostaje konstantan kroz cijelu sesiju, dok je odziv određen filtriranjem šuma radi glatkoće rada, a ne mrežnim prijenosom.
+\end{enumerate}
+
+Četveroslojni sigurnosni mehanizam uspješno je verificiran u teleometriji jer je ograničenje brzine i raspona zasitilo naredbe glatko i bez oscilacija, a programsko zaustavljanje zamrznulo je robota u zadanom trenutku. U kontekstu fizičke interakcije čovjeka i robota, u ovom postavu kontinuirano vođenje ostaje ugodno do 100 ms dodanog kašnjenja, dok pri 200 ms i više operater prelazi na diskontinuiranu strategiju pomaka i čekanja (\emph{move-and-wait}); mjereno ukupnim odzivom, prijelaz nastupa između 485 i 585 ms.
+
+Kao potencijalna nadogradnja sustava, daljnji rad mogao bi se usmjeriti na osiguravanje punog ulaznog takta od 120 Hz radi dodatnog smanjenja faznog pomaka filtra, primjenu dinamičkog praćenja udaljenosti (SSM) prema normi ISO/TS 15066 te ispitivanje rada s većim brojem operatera.
+
+\vspace{0.2cm}
+\noindent\small\textbf{Dostupnost.} Cjelokupni izvorni kod, postavke i podaci dostupni su na javnom repozitoriju \url{https://github.com/KxHartl/hri-seminar}.
+
+\FloatBarrier

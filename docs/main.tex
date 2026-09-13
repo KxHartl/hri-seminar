@@ -1,0 +1,165 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage{cmap}
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage{lmodern}
+\else
+    \usepackage{fontspec}
+\fi
+\usepackage[croatian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{abstract}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\ifPDFTeX
+    \usepackage{tgtermes}       % Times New Roman font (koherentno s thesis/seminar)
+\else
+    \setmainfont{texgyretermes-regular.otf}[
+      BoldFont = texgyretermes-bold.otf,
+      ItalicFont = texgyretermes-italic.otf,
+      BoldItalicFont = texgyretermes-bolditalic.otf
+    ] % Times New Roman font (XeTeX/LuaTeX)
+\fi
+\usepackage{chngcntr}       % Za numeriranje po poglavljima
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,decorations.pathreplacing}
+\usepackage{hyperref}
+
+\usepackage{float}
+\usepackage{dblfloatfix}
+\usepackage[section]{placeins}
+\usepackage{microtype}
+
+% ---- SMJESTANJE FLOATOVA ----
+% Zadane vrijednosti dopustaju najvise dva floata po stranici i traze 20 % teksta,
+% pa se u poglavlju s mnogo tablica floatovi guraju na zasebne stranice. Pravilo
+% projekta trazi da slika ili tablica stoji uz tekst koji je referencira.
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
+\setcounter{bottomnumber}{2}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.5}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+
+% ---- POSTAVKE MARGINA ----
+\geometry{left=1.8cm,right=1.8cm,top=2.2cm,bottom=2.2cm,columnsep=0.7cm}
+
+% ---- PRORED ----
+\singlespacing
+
+% --- Spriječavanje razdvajanja riječi (Strogo bez hifenacije) ---
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\righthyphenmin=62
+\lefthyphenmin=62
+\tolerance=2000
+\emergencystretch=2em
+
+% ---- STILOVI NASLOVA ----
+% Koherentno s thesis/seminar: section = bold uppercase, subsection = bold, subsubsection = bold italic
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries\MakeUppercase}{\thesection.}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape}{\thesubsubsection.}{0.5em}{}
+
+\titlespacing*{\section}{0pt}{12pt plus 2pt minus 1pt}{6pt plus 1pt minus 1pt}
+\titlespacing*{\subsection}{0pt}{10pt plus 2pt minus 1pt}{4pt plus 1pt minus 1pt}
+\titlespacing*{\subsubsection}{0pt}{8pt plus 2pt minus 1pt}{4pt plus 1pt minus 1pt}
+
+% Dubina numeriranja
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% ---- NUMERIRANJE SLIKA, TABLICA I JEDNADŽBI PO POGLAVLJIMA ----
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{equation}{section}
+
+% ---- NAZIVI (babel croatian override) ----
+\addto\captionscroatian{%
+  \renewcommand{\refname}{LITERATURA}%
+  \renewcommand{\abstractname}{SAŽETAK}%
+}
+
+% ---- POTPISI SLIKA I TABLICA ----
+% Captions: small bold (koherentno s thesis/seminar)
+\captionsetup[figure]{font={small,bf},labelsep=period}
+\captionsetup[table]{font={small,bf},labelsep=period,position=above}
+
+% ---- ABSTRACT STIL ----
+\renewcommand{\abstractnamefont}{\normalfont\normalsize\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small}
+\setlength{\absleftindent}{0pt}
+\setlength{\absrightindent}{0pt}
+
+% ---- ZAGLAVLJE I PODNOŽJE ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Krešimir Hartl}}
+\fancyhead[R]{\small\textit{Upravljanje UR zglobom OptiTrack sustavom}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---- NASLOV RADA ----
+\title{%
+    \vspace{-1.5cm}%
+    {\fontsize{16pt}{19pt}\selectfont\bfseries\MakeUppercase{Upravljanje zglobom Universal Robots robota pomoću OptiTrack sustava u realnom vremenu}}%
+    \vspace{0.3cm}%
+}
+\author{%
+    {\fontsize{12pt}{14pt}\selectfont Krešimir Hartl}\\[2pt]
+    {\small\textit{Fakultet strojarstva i brodogradnje, Sveučilište u Zagrebu}}\\[2pt]
+    {\small\textit{}}%
+}
+\date{}
+
+% ---- HYPERLINK POSTAVKE ----
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+% ---- SAŽETAK I KLJUČNE RIJEČI ----
+% Struktura znanstvenog rada (TASK/TASK.md §F). Sadržaj poglavlja popunjava `writer`.
+\begin{abstract}
+\noindent \input{chapters/00-sazetak.tex}
+
+\vspace{0.3cm}
+\noindent \textbf{Ključne riječi:} \emph{fizička interakcija čovjeka i robota (pHRI); OptiTrack; Universal Robots UR3e; upravljanje u stvarnom vremenu; oponašanje pokreta; One-Euro filtar; latencija; sigurnost kolaborativnih robota}
+\end{abstract}
+
+\vspace{0.5cm}
+
+% ---- SADRŽAJ RADA (poglavlja po §F) ----
+\input{chapters/01-uvod.tex}
+\input{chapters/02-metodologija.tex}
+\input{chapters/03-eksperimentalni-postav.tex}
+\input{chapters/04-rezultati.tex}
+\input{chapters/05-rasprava.tex}
+\input{chapters/06-zakljucak.tex}
+
+% ---- LITERATURA ----
+% BibTeX baza: docs/references.bib (15 izvora + norma ISO/TS 15066). Stil ieeetr = numeričko citiranje [1].
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}

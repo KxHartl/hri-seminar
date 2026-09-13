@@ -1,0 +1,45 @@
+% 05-rasprava.tex — Discussion (TASK §F.6, §D.4).
+\section{Rasprava}
+\label{sec:rasprava}
+
+\subsection{Kašnjenje i osjećaj kontrole}
+
+Niz mjerenja s dodanim kašnjenjem pokazuje jasan prijelaz u načinu vođenja koji ovisi o ukupnom vremenskom odzivu sustava. Prijelaz je zabilježen u ovom postavu, s jednim operaterom i jednim promatračem, pa opisuje ponašanje ovog sustava, a ne populacijski prag. Do 50 ms dodanog kašnjenja (ukupno fizikalno kašnjenje do $\approx 435$ ms) operater vodi robota kontinuirano i doživljava kontrolu kao potpunu. Pri 100 ms dodanog kašnjenja (ukupno $\approx 485$ ms, odnosno oko pola sekunde) operater počinje svjesno usporavati i čekati odziv robota u točkama promjene smjera. Pri 200 ms i 400 ms dodanog kašnjenja, kada ukupno kašnjenje doseže 585 ms i čak 785 ms (gotovo cijelu sekundu zaostajanja), operater u potpunosti prelazi na diskontinuiranu strategiju pomaka i čekanja (\emph{move-and-wait}), pri kojoj izvede diskretan pomak ruke, pričeka vizualnu potvrdu robota, provjeri poziciju te tek potom planira sljedeći pokret. Promatrač je isti prijelaz opisao kao trenutak u kojem operater počinje ulagati znatan kognitivni napor u kompenzaciju tromosti sustava umjesto u samo obavljanje zadatka.
+
+Taj je nalaz u skladu s literaturom o teleoperaciji. Louca i suradnici pri dvosmjernim kašnjenjima od 0 do 2600 ms bilježe sustavan porast udjela čekanja i pad uspješnosti kroz sve mjerene metrike, a prag od približno 500 ms iznad kojeg pogreške naglo rastu pripisuju ranijem mjerenju Pereza i suradnika \cite[str.~14]{louca2024}. Njihova su kašnjenja dvosmjerna, a ovdje mjerena jednosmjerna, pa se pragovi ne uspoređuju izravno. Budući da sustav već u baznom radu unosi 385 ms dinamičkog odziva (zbog One-Euro filtra, sigurnosnog sloja i regulacije pogona), dodavanje 100 do 200 ms pomiče ga u područje u kojem oba rada bilježe prijelaz na diskontinuirano vođenje, dok pri dodanih 400 ms (ukupno 785 ms) kontinuirano vođenje u stvarnom vremenu postaje nemoguće. Wang i suradnici pokazuju da pod promjenjivim kašnjenjem stabilnost i transparentnost ulaze u kompromis \cite[str.~5]{wang2025}. U našem radu regulacijski krug pri 785 ms ukupnog odziva zadržava potpunu numeričku stabilnost bez pojave oscilacija, no zbog prevelikog vremenskog pomaka operater gubi mogućnost izravnog intuitivnog vođenja.
+
+Praktična posljedica za projektiranje pHRI sustava jest da praćenje računalne latencije nije dovoljno. Latencija proračuna upravljačke petlje iznosi svega 3 ms, dok ukupno kašnjenje koje operater doživljava iznosi 385 ms. Razlika je gotovo u cijelosti posljedica faznog pomaka filtra i sigurnosnog sloja. Komparativna simulacija u okruženju URSim potvrđuje ovaj uvid jer isti zapis reproduciran u simulatoru zaostaje 248 ms, dakle 137 ms manje nego na fizičkom robotu. Ta razlika mjeri odmak između dvaju okruženja, a ne komponentu budžeta stvarnog lanca, čije razlaganje daje tablica~\ref{tab:budzet}. Sustav koji deklarira samo računsku latenciju izgleda stotinjak puta brži nego što se stvarno ponaša u interakciji.
+
+\subsection{Koje su pogreške prihvatljive}
+
+Dvije vrste odstupanja mjerene u ovom radu operater doživljava potpuno
+različito. Fazni pomak od nekoliko stotina milisekundi mjerljivo je velik, ali
+dok je konstantan, čovjek ga nauči predviđati i kompenzirati unaprijed, što
+se i potvrdilo pri manjim iznosima dodanog kašnjenja. Amplitudno odstupanje i
+diskontinuitet bitno su nepovoljniji za korisnika. Rad bez filtra imao je objektivno najmanju pogrešku,
+ali je subjektivno ocijenjen kao nesiguran zbog trzanja motora. Prigušenje koje One-Euro filtar osigurava
+stvara gladak pokret koji ulijeva povjerenje operateru.
+
+To opravdava izbor filtra One-Euro kao primarnog rješenja jer postiže najbolji omjer glatkoće i brzine odziva, uz najmanji broj zasićenja brzine među filtriranim varijantama. Martini i suradnici uz sirovu pogrešku izvještavaju i pogrešku akceleracije kao zasebnu mjeru podrhtavanja \cite[str.~5]{martini2024}, čime pokazuju da glatkoća zaslužuje vlastitu metriku. Ovdje izmjereni kompromis ide korak dalje jer dvije metrike pokazuju u suprotnom smjeru, pa izbor filtra postaje odluka o tome koja od njih vodi.
+
+\subsection{Granica prema autonomiji}
+
+Sustav radi kao teleoperacijski postav u kojem robot nema vlastiti model zadatka već izvršava naredbe izvedene iz položaja ruke. Stroppa i suradnici opisuju dijeljeno upravljanje kao spektar između ručnog vođenja i autonomije \cite[str.~5]{stroppa2023}. Naš sigurnosni sloj predstavlja prvi korak prema tom spektru jer robot autonomno korigira naredbu kada ona prelazi zadane fizikalne granice. Pri ispitivanju brzine ta je korekcija trajala gotovo četvrtinu pokusa, a operater ju je opisao kao ugodno i prirodno ponašanje stroja.
+
+To se izravno povezuje s pitanjem osjećaja djelovanja (\emph{sense of agency}) u interakciji čovjeka i robota \cite[str.~1]{glawe2026}, pri čemu operater zadržava osjećaj kontrole dok su intervencije robota predvidljive i u skladu s fizikalnom intuicijom (poput glatkog ograničenja brzine). Nasuprot tome, nagli prekidi ili zamrzavanja pojedinih zglobova pri okluziji markera doživljavaju se kao smetnja u radu.
+
+\subsection{Ograničenja}
+
+Rezultate rada treba interpretirati uz sljedeća poznata ograničenja.
+
+\textbf{Subjektivna procjena ima dva sudionika.} Operater i promatrač ispunili su strukturirani upitnik u slobodnoj formi. Znanstvena korisnička studija sa statističkim uzorkom i validiranim psihometrijskim ljestvicama zahtijeva veći broj ispitanika, što nadilazi opseg ovog rada. Opažanja operatera stoga služe kao kvalitativna potvrda uz izmjerene objektivne teleometrijske veličine.
+
+\textbf{Markeri prate odjeću, a ne kostur.} Markeri su postavljeni na sportsku majicu i rukavicu, pa mjerenje uključuje i elastični pomak tkanine i mekog tkiva. Korištenje krutih ortoza uklonilo bi taj pomak, ali bi narušilo prirodnost ljudskog pokreta. Analiza osjetljivosti pokazuje da pomak markera od 1 mm unosi pogrešku kuta od 0,77 do 1,40$^\circ$, što je znatno manje od raspona pokreta zgloba.
+
+\textbf{Efektivna frekvencija ulaznog toka podataka.} Uslijed mrežnog grupiranja paketa, ulazni signali stizali su u petlju frekvencijom od 31 do 73 Hz umjesto nazivnih 120 Hz. One-Euro filtar je stoga radio uz efektivno dulji period uzorkovanja, što objašnjava izmjereni fazni pomak od 200 ms.
+
+\textbf{Mjerenje latencije obrade.} Vremenska oznaka postavlja se pri primitku paketa na upravljačko računalo, pa izmjerene 3 ms obuhvaćaju obradu i slanje, dok je optički put kroz Motive procijenjen iz stabilnosti okvira na oko 8,4 ms.
+
+\textbf{Statičko ograničenje radnog prostora i brzine.} Granice brzine i kuta postavljene su fiksno, bez dinamičkog mjerenja udaljenosti čovjeka od robota. Fiksna granica vrijedi u cijelom radnom prostoru, pa je pri najduljem kraku najmanje konzervativna; PFL proračun u odjeljku~\ref{sec:postav} pokazuje da je zbog toga elevacija ramena jedina os koja pri punom dosegu prelazi prag norme ISO/TS 15066.
+
+\FloatBarrier

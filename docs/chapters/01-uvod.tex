@@ -1,0 +1,147 @@
+% 01-uvod.tex — Introduction + Related Work (TASK §F.2).
+\section{Uvod}
+
+Klasično programiranje robota zadaje putanju unaprijed. Fizička interakcija
+čovjeka i robota (\emph{physical Human--Robot Interaction}, pHRI) mijenja tu
+podjelu jer čovjek vlastitim pokretom neposredno određuje što robot radi, u
+trenutku u kojem se pokret događa. Time nestaje razdvojenost operatera i stroja
+koja je dosad bila glavni sigurnosni mehanizam, pa se sigurnost mora preseliti u
+sam upravljački lanac. Problem je i mjerni. Ljudski pokret nosi šum, tremor i
+prekide u vidljivosti, a robot traži naredbe koje su glatke, ograničene po
+brzini i predvidljive u svakom taktu.
+
+Zadatak koji stoji pred ovim radom postavljen je konkretno. Treba izgraditi
+sustav koji u stvarnom vremenu prima položaje markera ljudske ruke iz sustava
+OptiTrack, iz njih računa zakret odabranog ljudskog zgloba, taj zakret
+preslikava na jedan zglob robota Universal Robots, naredbu šalje robotu mrežom i
+radi kontinuirano, uz jasno određene granice sigurnog ponašanja. Odabrani par
+zglobova anatomski je podudaran, pri čemu kut fleksije ljudskog lakta vodi lakat robota,
+zglob J3. Savijanje ruke savija robota, pa je veza između pokreta i posljedice
+očita i bez objašnjenja. Sustav opisan ovdje ispunjava taj zahtjev i proširuje
+ga. Istim obradnim lancem i u istom taktu sustav vodi svih šest zglobova kolaborativnog
+robota UR3e iz pokreta jedne ljudske ruke, pri čemu je obvezni kanal lakta na J3
+jedan od tih šest zglobova, izmjeren istim alatom i u svakom pokusu kao i preostalih pet.
+
+Optički sustavi za praćenje pokreta, poput sustava OptiTrack, mjere položaj
+segmenata tijela s milimetarskom točnošću na frekvenciji od 120 Hz. Premda je to
+zadovoljavajuće za teleoperaciju, kolaborativni robot UR3e ima tvorničku ponovljivost
+pozicioniranja od $\pm 0{,}03$\,mm, pa optički sustav i šum markera predstavljaju
+glavni limitator točnosti cjelokupnog postava. Izazov koji nije riješen samim
+mjerenjem jest put od optičke rekonstrukcije do pogona robota, odnosno pitanje koliko se kašnjenja
+nakupi duž obradnog lanca, koliki udio dolazi od filtriranja, a koliki od dinamike
+samog robota, te pri kojem iznosu kašnjenja operater gubi osjećaj izravnog upravljanja.
+Ovaj rad eksperimentalno istražuje taj put i mjeri ga na stvarnom kolaborativnom
+robotu u laboratoriju.
+
+\subsection{Arhitektura sustava}
+
+Sustav je izveden kao obradni lanac neovisan o izvoru podataka i odredištu
+naredbi. Isti kod radi s reproduciranom snimkom i sa živim hardverom, a zamjena
+izvora (snimka ili živi tok podataka protokolom NatNet) i odredišta
+(simulator URSim ili stvarni UR3e) provodi se promjenom konfiguracije. Tok podataka
+prikazuje slika~\ref{fig:arhitektura}, a proteže se od izvora i prijemnika preko
+izračuna zglobnih kanala, kauzalnog filtra i sigurnosnog sloja do robota
+putem sučelja RTDE. Uz svaki takt bilježe se vremenske oznake te, odvojeno,
+svi kutovi (ulazni, filtrirani, ciljni, naredbeni i stvarno izmjereni kut robota).
+Ta zadnja stavka razlikuje mjerenje vjernosti od mjerenja brzine, i o njoj ovisi
+najveći dio rezultata u poglavlju~\ref{sec:rezultati}.
+
+\begin{figure*}[t]
+  \centering
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      box/.style={draw, rounded corners=2pt, align=center, minimum height=8mm,
+                  inner xsep=4pt, text width=20mm},
+      arr/.style={-{Latex[length=2mm]}, thick},
+    ]
+    \node[box] (src)    {Izvor\\\scriptsize OptiTrack ili snimka (UDP, NatNet)};
+    \node[box, right=5mm of src]  (rx)   {Prijem\\\scriptsize gubitak, redoslijed, frekvencija};
+    \node[box, right=5mm of rx]   (ang)  {Zglobni kanali\\\scriptsize poze krutih tijela};
+    \node[box, right=5mm of ang]  (filt) {Kauzalni filtar\\\scriptsize One-Euro po zglobu};
+    \node[box, right=5mm of filt] (safe) {Sigurnosni sloj\\\scriptsize brzina, raspon, zadržavanje};
+    \node[box, right=5mm of safe] (rob)  {Robot\\\scriptsize RTDE (UR3e / URSim)};
+    \draw[arr] (src) -- (rx);
+    \draw[arr] (rx) -- (ang);
+    \draw[arr] (ang) -- (filt);
+    \draw[arr] (filt) -- (safe);
+    \draw[arr] (safe) -- (rob);
+    \draw[decorate, decoration={brace, amplitude=4pt, mirror}]
+      ([yshift=-3mm]src.south west) -- ([yshift=-3mm]rob.south east)
+      node[midway, below=2pt] {\scriptsize po taktu se bilježe vremenske oznake i svi kutovi, uključujući stvarni kut robota};
+  \end{tikzpicture}
+  \caption{Obradni lanac neovisan o izvoru i odredištu. Zamjena izvora (snimka
+  ili živi tok podataka) i odredišta (URSim ili UR3e) je promjena
+  konfiguracije.}
+  \label{fig:arhitektura}
+\end{figure*}
+
+Rad daje tri doprinosa. Prvi je cjelovit upravljački lanac s malim računskim kašnjenjem,
+od optičkog mjerenja do stvarnog kolaborativnog robota, sa sigurnosnim slojem
+čije djelovanje ostaje zapisano u teleometriji. Drugi doprinos je mjerni, kroz
+analitičko i eksperimentalno razlaganje ukupnog kašnjenja ruka--robot na filtar, sigurnosni sloj i regulaciju pogona,
+čime se egzaktno pokazuje koji dio lanca određuje dinamički odziv. Treći je vrednovanje
+sustava u području fizičke interakcije čovjeka i robota, gdje se objektivne mjere
+odziva povezuju s opažanjima operatera pri umjetno unesenom kašnjenju i analizi
+granica upravljivosti.
+
+\subsection{Pregled povezanih radova}
+
+\textbf{Sigurnost u pHRI-u.} Norma ISO/TS 15066 definira način rada s
+ograničenjem snage i sile (\emph{power-and-force limiting}, PFL), u kojem se
+najveća dopuštena brzina robota izvodi iz efektivne mase, dopuštene sile i
+krutosti zahvaćenog dijela tijela. Ghanbarzadeh i Najafi na toj osnovi predlažu
+regulator s promjenjivom impedancijom za siguran kontakt
+\cite[str.~4]{ghanbarzadeh2025}. Peng i suradnici razvijaju dinamičko praćenje
+brzine i razdvojenosti (\emph{speed and separation monitoring}, SSM) u kojem se
+zaštitna udaljenost, a time i brzina robota, prilagođavaju blizini čovjeka
+\cite[str.~1]{peng2025}. Oba pristupa motiviraju naš sigurnosni sloj. Budući da
+robotom upravlja čovjek koji stoji uz njega, umjesto pune impedancije
+primjenjujemo jednostavnije, ali deterministički provjerljivo ograničenje brzine
+i raspona, čije granice odjeljak~\ref{sec:postav} provjerava PFL proračunom;
+poglavlje~\ref{sec:rezultati} pokazuje koliko je često taj sloj doista djelovao.
+
+\textbf{Teleoperacija, kašnjenje i osjećaj kontrole.} Wang i suradnici pokazuju
+da pod vremenski promjenjivim mrežnim kašnjenjem postoji kompromis između
+stabilnosti i transparentnosti bilateralne teleoperacije
+\cite[str.~5]{wang2025}. Louca i suradnici eksperimentalno potvrđuju da porast
+latencije sustavno pogoršava uspješnost, točnost i kontaktne sile pri
+teleoperaciji \cite[str.~14]{louca2024}. Shi i suradnici optimiraju latenciju i
+pouzdanost mrežne teleoperacije s povratom sile \cite[str.~9]{shi2025}, dok
+Zainudin i suradnici smanjuju kašnjenje upravljanja robotom UR10e
+\textit{multi-thread} obradom, izbjegavajući inverznu kinematiku i
+opsežnu kalibraciju \cite[str.~2]{zainudin2025}. Ti radovi određuju što mjerimo
+i kako to tumačimo. Naš je put lokalan, pa je red veličine brži od njihovih
+mrežnih scenarija, zbog čega mjereno kašnjenje ovdje ne dolazi
+od mreže, nego od filtriranja signala.
+
+\textbf{Preslikavanje pokreta na robota.} Weigend i suradnici procjenjuju pozu
+ruke iz oskudnih senzora za sveprisutno upravljanje robotom uz mjeru
+nesigurnosti \cite[str.~1]{weigend2023}, a okvir iRoCo probabilističkim
+diferencijabilnim filtrima uravnotežuje preciznost upravljanja i slobodu
+kretanja korisnika \cite[str.~1]{weigend2024}. Za razliku od tih pristupa
+zasnovanih na učenju i procjeni cijele poze, naše je preslikavanje izravno i
+eksplicitno jer šest kanala izvedenih iz poza triju krutih tijela vodi šest
+zglobova. Time gubimo općenitost, a dobivamo lanac u kojem je svaka
+transformacija poznata i provjerljiva, pa se pogreška može pripisati konkretnom
+stupnju. \textbf{Mjerni etalon.} Castillo i suradnici koriste OptiTrack kao
+komercijalnu referencu pri vrednovanju jeftinijih sustava praćenja, potvrđujući
+ga kao točan izvor mjerenja \cite[str.~7]{castillo2025}.
+
+\textbf{Filtriranje šumnog pokreta.} Martini i suradnici predlažu robustan
+filtar za rad u stvarnom vremenu koji smanjuje podrhtavanje robota i uspoređuju
+ga s linearnim Kalmanovim filtrom prvog i drugog reda
+\cite[str.~5]{martini2024}, dok Zhu i suradnici naglašavaju da klasično
+niskopropusno filtriranje unosi fazno kašnjenje nepovoljno za rad u stvarnom
+vremenu te predlažu prilagodljivu atenuaciju tremora \cite[str.~2]{zhu2022}. To
+opravdava izbor kauzalnog filtra One-Euro \cite{casiez2012} umjesto nekauzalnog
+izglađivanja. Naši rezultati taj nalaz i zaoštravaju budući da se fazno kašnjenje filtra
+pokazalo najvećim pojedinačnim doprinosom ukupnom odzivu sustava.
+
+\textbf{Teleoperacija i autonomija.} Stroppa i suradnici razmatraju paradigme
+dijeljenog upravljanja kao spektar između ručnog i autonomnog
+\cite[str.~5]{stroppa2023}, a Glawe i suradnici sustavno pregledavaju ljudsku
+autonomiju i osjećaj djelovanja (\emph{sense of agency}) u HRI-u
+\cite[str.~1]{glawe2026}. Oba čine okosnicu rasprave u
+poglavlju~\ref{sec:rasprava}.
+
+\FloatBarrier
