@@ -51,7 +51,7 @@ pripadnih `*.summary.json`. Nalazi i ispravci:
 | sigurnost 23,8 % / 13,0 % / 50,1 % | `T-08`, `T-09`, `T-12a` | točno |
 | gubitak: starost 7,5→19,7 ms, RMSE 4,95→6,92° | `loss_sweep/L-*.json` | točno |
 | osjetljivost 0,77–1,40°/mm | `filter_bench.summary.json` | točno |
-| 79 testova | `pytest src/tests -q` | točno |
+| 80 testova | `pytest src/tests -q` | točno |
 | ukupno gibanje „nešto više od deset minuta" | zbroj trajanja = 620 s | ispravljeno iz „oko jedanaest minuta" |
 | prijelaz vođenja na 100 ms | `SUBJEKTIVNI_UPITNIK_REZULTATI.md` | ispravljeno: kontinuirano do 50 ms, čekanje na 100 ms |
 | „stotinjak puta" (385 ms / 3 ms) | izračun | ispravljeno iz „dvjesto puta" |
@@ -66,7 +66,7 @@ pripadnih `*.summary.json`. Nalazi i ispravci:
 | ≥ 5 znanstvenih radova, svi ≥ 2021, IEEE/Springer/Elsevier/ACM | 16 ključeva (15 radova + norma ISO/TS 15066), 13 iz kvalificiranih izvora (uz `casiez2012` kao izvorni rad o One-Euro filtru i `zhu2022` kao potporni) |
 | Literatura korištena, ne samo citirana | svaki ključ pojavljuje se u obrazloženju metode ili u usporedbi s vlastitim rješenjem |
 | Nema izmišljenih `\cite` ključeva | provjereno: 16 u `.bib`, 16 citirano, presjek potpun |
-| Implementacija + evaluacija | `src/`, 79 testova, 21 laboratorijski run |
+| Implementacija + evaluacija | `src/`, 80 testova, 21 laboratorijski run |
 | Kolegij naveden na naslovnici | dodan redak *Kolegij: Interakcija čovjeka i robota* (`docs/main.tex`) |
 | Demonstracija u laboratoriju | `testing/lab/protocols/07_demo_runbook.md`, video zapisi u `data/processed/video_clips_01092026/camera/` |
 

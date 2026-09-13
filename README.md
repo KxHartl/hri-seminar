@@ -49,7 +49,7 @@ Ovaj repozitorij sadrži cjeloviti cjevovod za teleoperaciju kolaborativnog robo
 └── TASK/       # Zadatak i specifikacija kolegija
 ```
 
-- **`src/`**: Izvorni kod (kinematika, filtri, sigurnosni moduli, RTDE komunikacija, alati za analizu i 79 testova).
+- **`src/`**: Izvorni kod (kinematika, filtri, sigurnosni moduli, RTDE komunikacija, alati za analizu i 80 testova).
 - **`testing/`**:
   - `testing/lab/`: Izvršne skripte (`run_all_tests.ps1`, `00_check.ps1`, itd.), protokoli pokusa i dijagnostika.
   - `testing/virtual/`: Skripte za izvođenje i verifikaciju unutar VMware URSim simulatora.
