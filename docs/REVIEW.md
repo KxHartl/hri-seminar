@@ -53,7 +53,7 @@ pripadnih `*.summary.json`. Nalazi i ispravci:
 | osjetljivost 0,77–1,40°/mm | `filter_bench.summary.json` | točno |
 | 80 testova | `pytest src/tests -q` | točno |
 | ukupno gibanje „nešto više od deset minuta" | zbroj trajanja = 620 s | ispravljeno iz „oko jedanaest minuta" |
-| prijelaz vođenja na 100 ms | `SUBJEKTIVNI_UPITNIK_REZULTATI.md` | ispravljeno: kontinuirano do 50 ms, čekanje na 100 ms |
+| prijelaz vođenja na 100 ms | `testing/lab/protocols/10_subjective_evaluation.md` | ispravljeno: kontinuirano do 50 ms, čekanje na 100 ms |
 | „stotinjak puta" (385 ms / 3 ms) | izračun | ispravljeno iz „dvjesto puta" |
 | 21 run s telemetrijom + 1 samo video + 3 neizvedena | `run_log.csv` | ispravljeno iz „24 planirana pokusa" |
 
@@ -83,18 +83,16 @@ pripadnih `*.summary.json`. Nalazi i ispravci:
 
 ## 5. Otvoreno prije predaje
 
-1. **Ispunjeni pHRI upitnik nije u repou.** §5.4 rada navodi da su operater i
-   promatrač ispunili strukturirani upitnik, a §2 ove recenzije poziva se na
-   `SUBJEKTIVNI_UPITNIK_REZULTATI.md` kao izvor tvrdnje o prijelazu vođenja na 100 ms.
-   Ta datoteka ne postoji — u repou je samo prazan predložak
-   `testing/lab/templates/phri_questionnaire.md`. To je jedina numerička tvrdnja u radu
-   bez provjerljivog izvora; ispunjeni zapis treba dodati u
-   `data/raw/lab_session_01092026_020000/` i ovdje ispraviti putanju.
-2. Mentor se ne imenuje (odluka autora) — polja `professor_*` uklonjena iz
+1. Mentor se ne imenuje (odluka autora) — polja `professor_*` uklonjena iz
    `project.yaml`; naslovnica rada ih ionako ne ispisuje. Kolegij je od v1.5 naveden.
-3. Neizvedeni pokusi (URSim referenca, endurance, ponovljivost) i modelirani
+2. Neizvedeni pokusi (URSim referenca, endurance, ponovljivost) i modelirani
    gubitak paketa navedeni su u Ograničenjima. Ako se otvori termin u
    laboratoriju, prioritet je desetominutni endurance run i ispravno injektiran
    gubitak preko `live_sender --drop-rate`.
-4. Izvor prezentacije (`docs/presentation/`) nije u repou — samo izvezeni `.pptx` i
+3. Izvor prezentacije (`docs/presentation/`) nije u repou — samo izvezeni `.pptx` i
    `.pdf`. Izmjene slajdova su ručne.
+
+> Ispunjeni pHRI upitnik obaju sudionika nalazi se u
+> `testing/lab/protocols/10_subjective_evaluation.md` (refaktor `LabTESTING/` →
+> `testing/lab/` preimenovao ga je iz `SUBJEKTIVNI_UPITNIK_REZULTATI.md`, pa ga
+> starije reference traže pod starim imenom).
