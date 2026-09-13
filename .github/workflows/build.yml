@@ -5,6 +5,9 @@ on:
     branches: [ main ]
     paths:
       - 'docs/**/*.tex'
+      - 'docs/references.bib'
+      - 'scripts/build-docs.sh'
+      - '.github/workflows/build.yml'
   pull_request:
     branches: [ main ]
 
@@ -21,10 +24,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile LaTeX documents
-        run: bash ./.ai/scripts/helpers/build-docs.sh --version ci
+        run: bash ./scripts/build-docs.sh --version ci
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
           name: Compiled_Document
-          path: dist/**/*.pdf
+          path: dist/ci/*.pdf
