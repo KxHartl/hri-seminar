@@ -1,0 +1,11 @@
+created: "2026-09-04T16:30:00+02:00"
+source_raw: "data/raw/lab_session_01092026_020000/telemetry"
+target_platform: "ursim (VMware virtual machine @ 192.168.208.128)"
+robot_model: "Universal Robots UR3e (e-Series)"
+control_hz: 125
+description: "Sustavna usporedba telemetrije fizičkog robota UR3e i simulacijskog replaya na URSim simulatoru kroz 21 laboratorijski pokus."
+files:
+  telemetry: "telemetry/"
+  comparison_metrics_csv: "comparison_metrics.csv"
+  comparison_metrics_json: "comparison_metrics.json"
+  report: "COMPARISON_REPORT.md"

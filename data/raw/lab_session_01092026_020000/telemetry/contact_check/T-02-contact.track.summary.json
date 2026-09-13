@@ -1,0 +1,77 @@
+{
+  "file": "T-02-contact.track.csv",
+  "n": 2500,
+  "duration_s": 20.04,
+  "effective_rate_hz": 125.0,
+  "joints": {
+    "J3": {
+      "hold_pct": 0.0,
+      "input_update_rate_hz": 125.0,
+      "mapping": {
+        "channel": "elbow",
+        "gain": 1.5,
+        "invert": false,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -18.93,
+        42.26
+      ],
+      "range_scaled_in_deg": [
+        -28.4,
+        63.4
+      ],
+      "range_cmd_deg": [
+        -14.56,
+        20.0
+      ],
+      "input_to_command": {
+        "rmse_deg": 20.66227332133306,
+        "max_abs_dev_deg": 38.3486,
+        "lag_ms": 712.2669999999985,
+        "corr": 0.30595137916813736,
+        "rmse_aligned_deg": 14.587630945097601
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 14.203580411718766,
+        "max_abs_dev_deg": 25.12805,
+        "lag_ms": 136.0509999999997,
+        "corr": 0.9680224250138992,
+        "rmse_aligned_deg": 12.696390307126356
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 33.30788766801061,
+        "max_abs_dev_deg": 60.7108,
+        "lag_ms": 832.3119999999982,
+        "corr": 0.1285368047917345,
+        "rmse_aligned_deg": 26.317824776153916
+      },
+      "target_to_actual": {
+        "rmse_deg": 19.77217126694294,
+        "max_abs_dev_deg": 36.5598,
+        "lag_ms": 688.2579999999984,
+        "corr": 0.34216948677412995,
+        "rmse_aligned_deg": 13.902745335315208
+      },
+      "input_to_actual": {
+        "rmse_deg": 22.14262980521871,
+        "max_abs_dev_deg": 40.044399999999996,
+        "lag_ms": 832.3119999999982,
+        "corr": 0.12853680479173452,
+        "rmse_aligned_deg": 14.587198665184431
+      },
+      "command_to_actual": {
+        "rmse_deg": 1.6370684156723567,
+        "max_abs_dev_deg": 2.2682,
+        "lag_ms": 112.04199999999975,
+        "corr": 0.9809356324680942,
+        "rmse_aligned_deg": 0.1346224395817356
+      },
+      "safety_events": {
+        "ratelim_ticks": 2344,
+        "rangeclamp_ticks": 1014,
+        "halted_ticks": 0
+      }
+    }
+  }
+}

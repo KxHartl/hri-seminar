@@ -1,0 +1,24 @@
+{
+  "latency": {
+    "n": 750,
+    "median_ms": 4.914760589599609,
+    "mean_ms": 4.760941823323567,
+    "p95_ms": 8.848905563354492,
+    "p99_ms": 9.983301162719727,
+    "max_ms": 10.908842086791992,
+    "jitter_ms": 2.6576220707028235
+  },
+  "rx_rate_hz": 120.0,
+  "rx_jitter_ms": 0.8,
+  "rx_received": 767,
+  "rx_lost": 0,
+  "rx_loss_pct": 0.0,
+  "rx_reordered": 0,
+  "safety_events": {
+    "J3": {
+      "ratelim_ticks": 642,
+      "rangeclamp_ticks": 298,
+      "halted_ticks": 0
+    }
+  }
+}

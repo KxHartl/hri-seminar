@@ -1,0 +1,16 @@
+{
+  "latency": {
+    "n": 1000,
+    "median_ms": 3.9975643157958984,
+    "mean_ms": 4.227778434753418,
+    "p95_ms": 8.026123046875,
+    "max_ms": 17.122268676757812,
+    "jitter_ms": 2.512753526433841
+  },
+  "rx_rate_hz": 107.8,
+  "rx_jitter_ms": 32.92,
+  "rx_received": 1164,
+  "rx_lost": 0,
+  "rx_loss_pct": 0.0,
+  "rx_reordered": 0
+}

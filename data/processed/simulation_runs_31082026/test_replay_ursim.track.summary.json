@@ -1,0 +1,77 @@
+{
+  "file": "test_replay_ursim.track.csv",
+  "n": 1250,
+  "duration_s": 10.025,
+  "effective_rate_hz": 124.1,
+  "joints": {
+    "J4": {
+      "hold_pct": 0.1,
+      "input_update_rate_hz": 124.0,
+      "mapping": {
+        "channel": "wrist_flex",
+        "gain": 1.2,
+        "invert": true,
+        "offset_deg": 0.0
+      },
+      "range_in_deg": [
+        -6.56,
+        17.24
+      ],
+      "range_scaled_in_deg": [
+        -20.69,
+        7.87
+      ],
+      "range_cmd_deg": [
+        -6.27,
+        10.18
+      ],
+      "input_to_command": {
+        "rmse_deg": 1.0749302355669414,
+        "max_abs_dev_deg": 7.060900000000002,
+        "lag_ms": 112.79799999999973,
+        "corr": 0.9441046287405429,
+        "rmse_aligned_deg": 0.1661381399477779
+      },
+      "scaled_input_to_target": {
+        "rmse_deg": 7.758431692817759,
+        "max_abs_dev_deg": 30.86732,
+        "lag_ms": 112.79799999999973,
+        "corr": -0.9441046287405429,
+        "rmse_aligned_deg": 7.486225746652388
+      },
+      "scaled_input_to_actual": {
+        "rmse_deg": 7.481956955733375,
+        "max_abs_dev_deg": 25.57302,
+        "lag_ms": 225.59599999999946,
+        "corr": -0.7667881438444506,
+        "rmse_aligned_deg": 7.274687779134086
+      },
+      "target_to_actual": {
+        "rmse_deg": 0.7480762797148429,
+        "max_abs_dev_deg": 5.2943,
+        "lag_ms": 112.79799999999973,
+        "corr": 0.9344833547121905,
+        "rmse_aligned_deg": 0.032261448132387134
+      },
+      "input_to_actual": {
+        "rmse_deg": 1.8172833183474721,
+        "max_abs_dev_deg": 12.355200000000002,
+        "lag_ms": 225.59599999999946,
+        "corr": 0.7667881438444504,
+        "rmse_aligned_deg": 0.17404800601004314
+      },
+      "command_to_actual": {
+        "rmse_deg": 0.7480762797148429,
+        "max_abs_dev_deg": 5.2943,
+        "lag_ms": 112.79799999999973,
+        "corr": 0.9344833547121905,
+        "rmse_aligned_deg": 0.032261448132387134
+      },
+      "safety_events": {
+        "ratelim_ticks": 0,
+        "rangeclamp_ticks": 0,
+        "halted_ticks": 0
+      }
+    }
+  }
+}

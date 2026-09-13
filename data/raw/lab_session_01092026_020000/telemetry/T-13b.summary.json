@@ -1,0 +1,50 @@
+{
+  "latency": {
+    "n": 3750,
+    "median_ms": 59.34000015258789,
+    "mean_ms": 59.45560932159424,
+    "p95_ms": 63.8730525970459,
+    "p99_ms": 65.21797180175781,
+    "max_ms": 70.07932662963867,
+    "jitter_ms": 4.145050837192638
+  },
+  "rx_rate_hz": 498.5,
+  "rx_jitter_ms": 22.72,
+  "rx_received": 10487,
+  "rx_lost": 0,
+  "rx_loss_pct": 0.0,
+  "rx_reordered": 6613,
+  "added_latency_ms": 50.0,
+  "safety_events": {
+    "J1": {
+      "ratelim_ticks": 310,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 12
+    },
+    "J2": {
+      "ratelim_ticks": 15,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 12
+    },
+    "J3": {
+      "ratelim_ticks": 93,
+      "rangeclamp_ticks": 8,
+      "halted_ticks": 12
+    },
+    "J4": {
+      "ratelim_ticks": 209,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 12
+    },
+    "J5": {
+      "ratelim_ticks": 563,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 12
+    },
+    "J6": {
+      "ratelim_ticks": 156,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 12
+    }
+  }
+}

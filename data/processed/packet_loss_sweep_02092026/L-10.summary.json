@@ -1,0 +1,61 @@
+{
+  "latency": {
+    "n": 3125,
+    "median_ms": 3.0434131622314453,
+    "mean_ms": 3.5201242065429685,
+    "p95_ms": 7.656335830688477,
+    "p99_ms": 8.899688720703125,
+    "max_ms": 13.83066177368164,
+    "jitter_ms": 2.435998321457791
+  },
+  "rx_rate_hz": 498.8,
+  "rx_jitter_ms": 22.9,
+  "rx_received": 8820,
+  "rx_lost": 971,
+  "rx_loss_pct": 9.92,
+  "rx_reordered": 6526,
+  "safety_events": {
+    "J1": {
+      "ratelim_ticks": 317,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J2": {
+      "ratelim_ticks": 43,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J3": {
+      "ratelim_ticks": 184,
+      "rangeclamp_ticks": 60,
+      "halted_ticks": 0
+    },
+    "J4": {
+      "ratelim_ticks": 243,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J5": {
+      "ratelim_ticks": 197,
+      "rangeclamp_ticks": 63,
+      "halted_ticks": 0
+    },
+    "J6": {
+      "ratelim_ticks": 80,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    }
+  },
+  "loss_model": {
+    "method": "offline",
+    "applied_to": "T-14.track.csv (isti snimak za sve stope)",
+    "target_rate": 0.1,
+    "realised_rate": 0.0992,
+    "seed": 7
+  },
+  "signal_age_ms": {
+    "median_ms": 3.424,
+    "p95_ms": 11.061,
+    "max_ms": 28.906
+  }
+}

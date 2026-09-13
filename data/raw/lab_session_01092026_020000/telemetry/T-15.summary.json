@@ -1,0 +1,63 @@
+{
+  "latency": {
+    "n": 3125,
+    "median_ms": 3.1113624572753906,
+    "mean_ms": 3.5674122619628905,
+    "p95_ms": 7.658481597900391,
+    "p99_ms": 9.12022590637207,
+    "max_ms": 15.762090682983398,
+    "jitter_ms": 2.396846678278336
+  },
+  "rx_rate_hz": 498.9,
+  "rx_jitter_ms": 23.04,
+  "rx_received": 9282,
+  "rx_lost": 501,
+  "rx_loss_pct": 5.12,
+  "rx_reordered": 6520,
+  "safety_events": {
+    "J1": {
+      "ratelim_ticks": 317,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J2": {
+      "ratelim_ticks": 5,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J3": {
+      "ratelim_ticks": 0,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J4": {
+      "ratelim_ticks": 0,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J5": {
+      "ratelim_ticks": 0,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    },
+    "J6": {
+      "ratelim_ticks": 0,
+      "rangeclamp_ticks": 0,
+      "halted_ticks": 0
+    }
+  },
+  "drop_rate": 0.05,
+  "signal_age_ms": {
+    "median_ms": 3.228,
+    "p95_ms": 8.948,
+    "max_ms": 25.089
+  },
+  "loss_model": {
+    "method": "offline",
+    "applied_to": "T-15.track.csv (recorded motion, no live loss)",
+    "target_rate": 0.05,
+    "realised_rate": 0.0512,
+    "seed": 102,
+    "hold": "last received value, signal_age_ms ages one control period per drop"
+  }
+}
